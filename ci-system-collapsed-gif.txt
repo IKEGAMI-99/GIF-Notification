@@ -1,0 +1,1 @@
+CI verification for system BigPicture collapsed GIF.
