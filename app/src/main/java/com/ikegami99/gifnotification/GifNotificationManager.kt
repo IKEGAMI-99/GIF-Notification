@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
+import android.widget.RemoteViews
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -47,15 +48,24 @@ object GifNotificationManager {
         val gifIcon = Icon.createWithContentUri(uri)
         val style = Notification.BigPictureStyle()
             .bigPicture(gifIcon)
-            .showBigPictureWhenCollapsed(true)
-            .setSummaryText("GIFを再生中")
+            .setBigContentTitle(null)
+            .setSummaryText(null)
+            .setContentDescription("GIF")
+
+        val collapsedView = RemoteViews(
+            context.packageName,
+            R.layout.notification_gif_collapsed,
+        ).apply {
+            setImageViewUri(R.id.notification_gif_image, uri)
+            setOnClickPendingIntent(R.id.notification_gif_container, pendingIntent)
+        }
 
         val notification = Notification.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_gif_notification)
-            .setContentTitle(item.title.ifBlank { "GIF Notification" })
-            .setContentText("GIFを表示中")
             .setContentIntent(pendingIntent)
+            .setCustomContentView(collapsedView)
             .setStyle(style)
+            .setShowWhen(false)
             .setOnlyAlertOnce(true)
             .setOngoing(true)
             .setAutoCancel(false)
