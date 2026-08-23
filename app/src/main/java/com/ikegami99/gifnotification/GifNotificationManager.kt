@@ -57,7 +57,6 @@ object GifNotificationManager {
             .setContentIntent(pendingIntent)
             .setStyle(style)
             .setOnlyAlertOnce(true)
-            .setSilent(true)
             .setOngoing(true)
             .setAutoCancel(false)
             .build()
