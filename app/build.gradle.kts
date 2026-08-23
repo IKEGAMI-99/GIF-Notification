@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.ikegami99.gifnotification"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.ikegami99.gifnotification"
